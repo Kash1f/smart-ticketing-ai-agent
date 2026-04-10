@@ -1,4 +1,4 @@
-# 🧠 Smart Ticket AI System
+# 🧠 Smart Ticket AI Agent System
 
 An AI-powered ticketing system that automatically analyzes, prioritizes, and assigns tickets using Gemini LLM. Built with a modern full-stack architecture and event-driven workflows for scalability and performance.
 
@@ -53,7 +53,7 @@ An AI-powered ticketing system that automatically analyzes, prioritizes, and ass
 
 ---
 
-## 📂 Project Structure (Simplified)
+## 📂 Project Structure
 
 /ai-frontend → React frontend
 /ai-server → Express backend
