@@ -55,11 +55,12 @@ An AI-powered ticketing system that automatically analyzes, prioritizes, and ass
 
 ## 📂 Project Structure
 
-/ai-frontend → React frontend
-/ai-server → Express backend
-/models → MongoDB schemas
-/inngest → Event-driven workflows
-/utils → Helper functions (mailer, etc.)
+- /ai-frontend → React frontend
+- /ai-server → Express backend
+- /models → MongoDB schemas
+- controllers - Backend logic
+- /inngest → Event-driven workflows
+- /utils → Helper functions (mailer, ai-agent pipeline)
 
 ## 🧪 Setup & Installation
 
@@ -78,3 +79,8 @@ npm run dev
 cd client
 npm start
 ```
+## 🙏 Acknowledgments
+- Google Gemini AI for LLM capabilities
+- Inngest for event-driven workflows
+- MongoDB for scalable database
+- React community for excellent frontend tools
