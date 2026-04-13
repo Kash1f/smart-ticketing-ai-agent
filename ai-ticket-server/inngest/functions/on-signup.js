@@ -25,10 +25,12 @@ const onUserSignUp = inngest.createFunction(
             \n\n
             Thanks for signing up. We're glad to have you onboard!
             `;
-        sendMail(user.email, subject, message);
+        sendMail(user.email, subject, message); 
       });
+        return {success: true}
     } catch (error) {
-      console.error("Error occurred while processing user signup:", error);
+      console.error("Error occurred while processing user signup:", error.message);
+      return { success: false}
     }
   },
 );
