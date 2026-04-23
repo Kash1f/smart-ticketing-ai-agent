@@ -4,8 +4,10 @@ import User from "../models/User.js";
 import { inngest } from "../inngest/client.js";
 
 export const signup = async (req, res) => {
-  const { email, password, skills = [] } = req.body;
+
   try {
+    const { email, password, skills = [] } = req.body;
+
     const hashed = await bcrypt.hash(password, 10);
     const user = await User.create({ email, password: hashed, skills });
 
@@ -17,14 +19,41 @@ export const signup = async (req, res) => {
       },
     });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" },
+    );
 
-    res.status(201).json({
-        token,
-        user: { id: user._id, email: user.email, skills: user.skills },
-      });
+    res.json({ user, token})
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: "Signup Failed", details: error.message });
   }
 };
 
+export const login = async (req, res) => {
+
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const user = await User.findOne({ email });
+    if(!user) return res.status(400).json({ message : "User not found" });
+
+    const isMatch = await bcrypt.compare(password, user.password)
+    if(!isMatch) return res.status(400).json({message: "Invalid Credentials"})
+
+    const token = jwt.sign(
+      {_id: user._id, role: user.role},
+      process.env.JWT_SECRET
+    )
+
+    res.json({ user, token})
+
+
+  } catch (error) {
+    res.status(500).json({ error: "Login Failed", details: error.message });
+  }
+};
